@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: kustomer
+    database: "{% if target.type != 'spark'%}{{ var('kustomer_database', target.database) }}{% endif %}"
+    schema: "{{ var ('kustomer_schema', 'target.schema') }}"
+    tables:
+      - name: conversations
+      - name: messages     
+      - name: notes
+      - name: kobjects
+      - name: companies
+      - name: customers
