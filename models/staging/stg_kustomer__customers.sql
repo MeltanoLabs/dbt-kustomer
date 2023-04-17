@@ -8,29 +8,29 @@ with source as (
 
     select
         id as customer_id
-        , attributes:externalId as external_id
-        , attributes:name as name
-        , attributes:firstName as first_name
-        , attributes:lastName as last_name
-        , attributes:displayName as display_name
-        , attributes:gender as gender
-        , attributes:defaultLang as default_language
-        , attributes:locale as locale
-        , attributes:displayColor as display_color
-        , attributes:progressiveStatus as progressive_status
-        , attributes:deleted as is_deleted
-        , attributes:verified as is_verified
-        , attributes:conversationCounts:open as conversation_count_open 
-        , attributes:conversationCounts:done as conversation_count_done
-        , attributes:conversationCounts:snoozed as conversation_count_snoozed
-        , attributes:conversationCounts:all as conversation_count_all
-        , attributes:lastConversation:channels as last_conversation_channels
-        , attributes:lastConversation:tags as last_conversation_tags
-        , attributes:lastMessageOut:sentAt as last_message_sent_at
-        , attributes:lastActivityAt as last_activity_at
-        , attributes:lastMessageAt as last_message_at
-        , relationships:modifiedBy:data:id as modified_by
-        , relationships:createdBy:data:id as created_by -- TODO always null
+        , {{ extract_json_field('attributes', ['externalId']) }} as external_id
+        , {{ extract_json_field('attributes', ['name']) }} as name
+        , {{ extract_json_field('attributes', ['firstName']) }} as first_name
+        , {{ extract_json_field('attributes', ['lastName']) }} as last_name
+        , {{ extract_json_field('attributes', ['displayName']) }} as display_name
+        , {{ extract_json_field('attributes', ['gender']) }} as gender
+        , {{ extract_json_field('attributes', ['defaultLang']) }} as default_language
+        , {{ extract_json_field('attributes', ['locale']) }} as locale
+        , {{ extract_json_field('attributes', ['displayColor']) }} as display_color
+        , {{ extract_json_field('attributes', ['progressiveStatus']) }} as progressive_status
+        , {{ extract_json_field('attributes', ['deleted']) }} as is_deleted
+        , {{ extract_json_field('attributes', ['verified']) }} as is_verified
+        , {{ extract_json_field('attributes', ['conversationCounts', 'open']) }} as conversation_count_open 
+        , {{ extract_json_field('attributes', ['conversationCounts', 'done']) }} as conversation_count_done
+        , {{ extract_json_field('attributes', ['conversationCounts', 'snoozed']) }} as conversation_count_snoozed
+        , {{ extract_json_field('attributes', ['conversationCounts', 'all']) }} as conversation_count_all
+        , {{ extract_json_field('attributes', ['lastConversation', 'channels']) }} as last_conversation_channels
+        , {{ extract_json_field('attributes', ['lastConversation', 'tags']) }} as last_conversation_tags
+        , {{ extract_json_field('attributes', ['lastMessageOut', 'sentAt']) }} as last_message_sent_at
+        , {{ extract_json_field('attributes', ['lastActivityAt']) }} as last_activity_at
+        , {{ extract_json_field('attributes', ['lastMessageAt']) }} as last_message_at
+        , {{ extract_json_field('relationships', ['modifiedBy', 'data', 'id']) }} as modified_by
+        , {{ extract_json_field('relationships', ['createdBy', 'data', 'id']) }} as created_by -- TODO always null
         , updated_at
 
     from source

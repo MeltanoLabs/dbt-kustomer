@@ -8,64 +8,64 @@ with source as (
 
     select
         id as conversation_id
-        , attributes:deletedBy as deleted_by
-        , attributes:createdBy as created_by
-        , relationships:customer:data:id as customer_id
-        , relationships:modifiedBy:data:id as modified_by
-        , relationships:queue:data:id as queue_id
-        , relationships:slaVersion:data:id as sla_version_id
-        , attributes:deleted as is_deleted -- TO DO not in stream
-        , attributes:direction as direction 
-        , attributes:externalId as external_id 
-        , attributes:messageCount as message_count 
-        , attributes:name as name 
-        , attributes:noteCount as note_count 
-        , attributes:outboundMessageCount as outbound_message_count 
-        , attributes:reopenCount as reopen_count 
-        , attributes:rev as rev 
-        , attributes:satisfaction as satisfaction 
-        , attributes:snoozeCount as snooze_count 
-        , attributes:status as status 
-        , attributes:firstMessageIn:channel as first_message_in_channel 
-        , attributes:firstMessageIn:createdAt as first_message_in_created_at
-        , attributes:firstMessageIn:id as first_message_in_id
-        , attributes:firstMessageIn:meta:recipient:email as first_message_in_meta_recipient_email
-        , attributes:firstMessageIn:meta:recipient:mailboxHash as first_message_in_meta_recipient_mailbox_hash
-        , attributes:firstMessageIn:meta:to as first_message_in_meta_to
-        , attributes:firstMessageIn:sentAt:to as first_message_in_sent_at
-        , attributes:firstResponse:createdAt as first_response_created_at
-        , attributes:firstResponse:id as first_response_id
-        , attributes:firstResponse:responseTime as first_response_response_time
-        , attributes:firstResponse:sentAt as first_response_sent_at
-        , attributes:firstResponse:time as first_response_time
-        , attributes:satisfactionLevel:formResponse as satisfaction_level_form_response
-        , attributes:satisfactionLevel:form as satisfaction_level_form
-        , attributes:satisfactionLevel:channel as satisfaction_level_channel
-        , attributes:satisfactionLevel:status as satisfaction_level_status
-        , attributes:satisfactionLevel:scheduledFor as satisfaction_level_scheduled_for
-        , attributes:satisfactionLevel:createdAt as satisfaction_level_created_at
-        , attributes:satisfactionLevel:sentAt as satisfaction_level_sent_at
-        , attributes:satisfactionLevel:updatedAt as satisfaction_level_updated_at
-        , attributes:satisfactionLevel:answers as satisfaction_level_answers
-        , attributes:satisfactionLevel:sentBy as satisfaction_level_sent_by
-        , attributes:satisfactionLevel:sentByTeams as satisfaction_level_sent_by_teams
-        , attributes:lastMessageIn:id as last_message_in_id
-        , attributes:lastMessageIn:sentAt as last_message_in_sent_at
-        , attributes:lastMessageIn:createdAt as last_message_in_created_at
-        , attributes:lastMessageIn:meta:to as last_message_in_meta_to
-        , attributes:lastMessageIn:meta:from as last_message_in_meta_from
-        , attributes:lastMessageIn:channel as last_message_in_channel
-        , attributes:lastMessageOut:id as last_message_out_id
-        , attributes:lastMessageOut:sentAt as last_message_out_sent_at
-        , attributes:lastMessageOut:createdAt as last_message_out_created_at
-        , attributes:lastMessageOut:createdBy as last_message_out_created_by
-        , attributes:sla:name as sla_name
-        , attributes:sla:version as sla_version
-        , attributes:sla:matchedAt as sla_matched_at
-        , attributes:sla:metrics as sla_metrics
-        , attributes:sla:breached as sla_breached
-        , attributes:sla:status as sla_status
-        , attributes:sla:summary as sla_summary
+        , {{ extract_json_field('attributes', ['deletedBy']) }} as deleted_by
+        , {{ extract_json_field('attributes', ['createdBy']) }} as created_by
+        , {{ extract_json_field('relationships', ['customer', 'data', 'id']) }} as customer_id
+        , {{ extract_json_field('relationships', ['modifiedBy', 'data', 'id']) }} as modified_by
+        , {{ extract_json_field('relationships', ['queue', 'data', 'id']) }} as queue_id
+        , {{ extract_json_field('relationships', ['slaVersion', 'data', 'id']) }} as sla_version_id
+        , {{ extract_json_field('attributes', ['deleted']) }} as is_deleted -- TO DO not in stream
+        , {{ extract_json_field('attributes', ['direction']) }} as direction 
+        , {{ extract_json_field('attributes', ['externalId']) }} as external_id 
+        , {{ extract_json_field('attributes', ['messageCount']) }} as message_count 
+        , {{ extract_json_field('attributes', ['name']) }} as name 
+        , {{ extract_json_field('attributes', ['noteCount']) }} as note_count 
+        , {{ extract_json_field('attributes', ['outboundMessageCount']) }} as outbound_message_count 
+        , {{ extract_json_field('attributes', ['reopenCount']) }} as reopen_count 
+        , {{ extract_json_field('attributes', ['rev']) }} as rev 
+        , {{ extract_json_field('attributes', ['satisfaction']) }} as satisfaction 
+        , {{ extract_json_field('attributes', ['snoozeCount']) }} as snooze_count 
+        , {{ extract_json_field('attributes', ['status']) }} as status 
+        , {{ extract_json_field('attributes', ['firstMessageIn', 'channel']) }} as first_message_in_channel 
+        , {{ extract_json_field('attributes', ['firstMessageIn', 'createdAt']) }} as first_message_in_created_at
+        , {{ extract_json_field('attributes', ['firstMessageIn', 'id']) }} as first_message_in_id
+        , {{ extract_json_field('attributes', ['firstMessageIn', 'meta', 'recipient', 'email']) }} as first_message_in_meta_recipient_email
+        , {{ extract_json_field('attributes', ['firstMessageIn', 'meta', 'recipient', 'mailboxHash']) }} as first_message_in_meta_recipient_mailbox_hash
+        , {{ extract_json_field('attributes', ['firstMessageIn', 'meta', 'to']) }} as first_message_in_meta_to
+        , {{ extract_json_field('attributes', ['firstMessageIn', 'sentAt', 'to']) }} as first_message_in_sent_at
+        , {{ extract_json_field('attributes', ['firstResponse', 'createdAt']) }} as first_response_created_at
+        , {{ extract_json_field('attributes', ['firstResponse', 'id']) }} as first_response_id
+        , {{ extract_json_field('attributes', ['firstResponse', 'responseTime']) }} as first_response_response_time
+        , {{ extract_json_field('attributes', ['firstResponse', 'sentAt']) }} as first_response_sent_at
+        , {{ extract_json_field('attributes', ['firstResponse', 'time']) }} as first_response_time
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'formResponse']) }} as satisfaction_level_form_response
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'form']) }} as satisfaction_level_form
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'channel']) }} as satisfaction_level_channel
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'status']) }} as satisfaction_level_status
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'scheduledFor']) }} as satisfaction_level_scheduled_for
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'createdAt']) }} as satisfaction_level_created_at
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'sentAt']) }} as satisfaction_level_sent_at
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'updatedAt']) }} as satisfaction_level_updated_at
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'answers']) }} as satisfaction_level_answers
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'sentBy']) }} as satisfaction_level_sent_by
+        , {{ extract_json_field('attributes', ['satisfactionLevel', 'sentByTeams']) }} as satisfaction_level_sent_by_teams
+        , {{ extract_json_field('attributes', ['lastMessageIn', 'id']) }} as last_message_in_id
+        , {{ extract_json_field('attributes', ['lastMessageIn', 'sentAt']) }} as last_message_in_sent_at
+        , {{ extract_json_field('attributes', ['lastMessageIn', 'createdAt']) }} as last_message_in_created_at
+        , {{ extract_json_field('attributes', ['lastMessageIn', 'meta', 'to']) }} as last_message_in_meta_to
+        , {{ extract_json_field('attributes', ['lastMessageIn', 'meta', 'from']) }} as last_message_in_meta_from
+        , {{ extract_json_field('attributes', ['lastMessageIn', 'channel']) }} as last_message_in_channel
+        , {{ extract_json_field('attributes', ['lastMessageOut', 'id']) }} as last_message_out_id
+        , {{ extract_json_field('attributes', ['lastMessageOut', 'sentAt']) }} as last_message_out_sent_at
+        , {{ extract_json_field('attributes', ['lastMessageOut', 'createdAt']) }} as last_message_out_created_at
+        , {{ extract_json_field('attributes', ['lastMessageOut', 'createdBy']) }} as last_message_out_created_by
+        , {{ extract_json_field('attributes', ['sla', 'name']) }} as sla_name
+        , {{ extract_json_field('attributes', ['sla', 'version']) }} as sla_version
+        , {{ extract_json_field('attributes', ['sla', 'matchedAt']) }} as sla_matched_at
+        , {{ extract_json_field('attributes', ['sla', 'metrics']) }} as sla_metrics
+        , {{ extract_json_field('attributes', ['sla', 'breached']) }} as sla_breached
+        , {{ extract_json_field('attributes', ['sla', 'status']) }} as sla_status
+        , {{ extract_json_field('attributes', ['sla', 'summary']) }} as sla_summary
         , updated_at
 
     from source
