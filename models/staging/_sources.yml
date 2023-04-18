@@ -18,3 +18,10 @@ sources:
       - name: messages
       - name: notes
       - name: kobjects
+        columns:
+          - name: attributes
+          - name: id
+          - name: links
+          - name: relationships
+          - name: type
+          - name: updated_at
