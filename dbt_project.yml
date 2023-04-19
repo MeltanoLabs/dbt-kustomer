@@ -27,7 +27,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # Where the tap data is expected to be landed
 vars:
   kustomer_database: "dbt_kustomer"
-  kustomer_schema: "raw"
+  kustomer_schema: "tap_kustomer"
 
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
