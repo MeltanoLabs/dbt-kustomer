@@ -6,22 +6,34 @@ sources:
     schema: "{{ var ('kustomer_schema', 'target.schema') }}"
     tables:
       - name: companies
-        columns:
+        columns: &response_columns
           - name: attributes
+            description: A JSON field containing all attributes for that table
           - name: id
+            description: Primary key
           - name: links
+            description: A JSON field containing the API link to the object
           - name: relationships
+            description: A JSON field containing links and references to related tables
           - name: type
+            description: The object type e.g. `org`, `customer`, `company`
           - name: updated_at
+            description: Timestamp the record was last updated
       - name: conversations
+        columns: *response_columns
       - name: customers
-      - name: messages
-      - name: notes
+        columns: *response_columns
       - name: kobjects
-        columns:
-          - name: attributes
-          - name: id
-          - name: links
-          - name: relationships
-          - name: type
-          - name: updated_at
+        columns: *response_columns
+      - name: messages
+        columns: *response_columns
+      - name: notes
+        columns: *response_columns
+      - name: shortcuts
+        columns: *response_columns
+      - name: tags
+        columns: *response_columns
+      - name: teams
+        columns: *response_columns
+      - name: users
+        columns: *response_columns
