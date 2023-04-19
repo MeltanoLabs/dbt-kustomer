@@ -33,6 +33,7 @@ with source as (
 
         /* Meltano specific field */
         , updated_at as record_updated_at
+    
     from source
 
 )
