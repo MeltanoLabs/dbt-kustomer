@@ -1,0 +1,52 @@
+version: 2
+
+macros:
+  - name: extract_json_field
+    description: |
+      A macro to extract a specific JSON field which is independent of the warehouse used.
+      {% raw %}
+      ```sql
+      with customers as (
+
+        select
+            '{
+                "externalId": 2, 
+                "conversationCounts": {"open": 3}, 
+                "customerIds": [
+                    {"id": 0, "name": "Helen Parr", "children": ["Violet", "Dash", "Jack-Jack"]}, 
+                    {"id": 2, "name": "Wanda Maximoff", "children": ["Tommy", "Billy"]}
+                ],
+                "exampleMatrix": [[0, 1, 2], [3, 4, 5], [6, 7]]
+            }' as attributes
+
+      )
+
+      select
+        {{ extract_json_field('attributes', ['externalId']) }} as external_id
+        , {{ extract_json_field('attributes', ['conversationCounts', 'open']) }} as conversation_open_count
+        , {{ extract_json_field('attributes', ['customerIds[0]']) }} as first_customer_json
+        , {{ extract_json_field('attributes', ['customerIds[0]', 'name']) }} as first_customer_name
+        , {{ extract_json_field('attributes', ['exampleMatrix[1][0]']) }} as multiple_indexing
+      from customers
+      ```
+      {% endraw %}
+
+      The results would look like:
+
+      | external_id | conversation_open_count | first_customer_json                                                            | first_customer_name | multiple_indexing |
+      |-------------|-------------------------|--------------------------------------------------------------------------------|---------------------|-------------------|
+      | 2           | 3                       | `{"id": 0, "name": "Helen Parr", "children": ["Violet", "Dash", "Jack-Jack"]}` | Helen Parr          | 3                 |
+
+    arguments:
+      - name: field_name
+        type: string
+        description: The name of the column you want to convert e.g. `'attributes'`, `'data'`
+      - name: json_keys
+        type: array
+        description: |
+          An array of the JSON fields to use e.g.
+            - Single nested field in the object: `['externalId']`
+            - Multiple nested fields in objects: `['conversationCounts', 'open']`
+            - Indexing into arrays: `['customerIds[0]']`
+            - Indexing into arrays, then objects: `['customerIds[0]', 'name']`
+            - Indexing into arrays with multiple levels: `['exampleMatrix[1][0]']`
