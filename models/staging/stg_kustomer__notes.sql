@@ -21,6 +21,7 @@ with source as (
         , {{ extract_json_field('relationships', ['customer', 'data', 'id']) }} as customer_id
         , {{ extract_json_field('relationships', ['createdBy', 'data', 'id']) }} as created_by_id
         , {{ extract_json_field('relationships', ['modifiedBy', 'data', 'id']) }} as modified_by_id
+        , {{ extract_json_field('relationships', ['deletedBy', 'data', 'id']) }} as deleted_by_id
         , {{ extract_json_field('relationships', ['conversation', 'data', 'id']) }} as conversation_id
 
         /* Meltano specific field */
