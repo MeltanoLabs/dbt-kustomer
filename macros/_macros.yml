@@ -50,3 +50,42 @@ macros:
             - Indexing into arrays: `['customerIds[0]']`
             - Indexing into arrays, then objects: `['customerIds[0]', 'name']`
             - Indexing into arrays with multiple levels: `['exampleMatrix[1][0]']`
+
+  - name: flatten_json_array
+    description: |
+      A macro to flatten an array in a JSON column which is independent of the warehouse used.
+
+      | id    | value       |
+      |-------|-------------|
+      | `'a'` | `[1, 2, 3]` |
+      | `'b'` | `[0]`       |
+      | `'c'` | `[]`        |
+
+      To this:
+
+      | id    | value |
+      |-------|-------|
+      | `'a'` | `1`   |
+      | `'a'` | `2`   |
+      | `'a'` | `3`   |
+      | `'b'` | `0`   |
+
+      Example usage:
+
+      {%- raw -%}
+      ```sql
+      with source as (select id, value from {{ ref('my_table') }})
+      , flattened_array as ({{ flatten_json_array('source', 'id', 'value') }})
+      , final as (select id, value from flattened_array)
+      ```
+      {%- endraw -%}
+    arguments:
+      - name: table_name
+        type: string
+        description: The name of the table that the fields exist in
+      - name: id_column
+        type: string
+        description: The name of the column containing the primary key for the table
+      - name: array_column
+        type: string
+        description: The name of the column containing the array to flatten
