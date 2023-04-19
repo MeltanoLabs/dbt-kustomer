@@ -44,21 +44,3 @@
     {#- Create the extract path -#}
     json_query({{ field_name }}, '$.{{ fields }}')
 {%- endmacro -%}
-
-{%- macro sqllite__extract_json_field(field_name, json_keys) -%}
-    {#- https://www.sqlite.org/json1.html#jex -#}
-
-    {#- Create the array of fields with the join in them -#}
-    {%- set fields = json_keys | join(".") -%}
-    {#- Create the extract path -#}
-    json_extract({{ field_name }}, '$.{{ fields }}')
-{%- endmacro -%}
-
-{%- macro sqlserver__extract_json_field(field_name, json_keys) -%}
-    {#- https://learn.microsoft.com/it-it/sql/t-sql/functions/json-value-transact-sql?view=sql-server-ver16 -#}
-
-    {#- Create the array of fields with the join in them -#}
-    {%- set fields = json_keys | join(".") -%}
-    {#- Create the extract path -#}
-    json_value({{ field_name }}, '$.{{ fields }}')
-{%- endmacro -%}
