@@ -28,11 +28,8 @@ with source as (
         
         /* Relationships */
         , {{ extract_json_field('relationships', ['org', 'data', 'id']) }} as organisation_id
-        , {{ extract_json_field('relationships', ['org', 'data', 'type']) }} as organisation_type
-        , {{ extract_json_field('relationships', ['createdBy', 'data', 'id']) }} as created_by
-        , {{ extract_json_field('relationships', ['createdBy', 'data', 'type']) }} as created_by_type
-        , {{ extract_json_field('relationships', ['modifiedBy', 'data', 'id']) }} as modified_by
-        , {{ extract_json_field('relationships', ['modifiedBy', 'data', 'type']) }} as modified_by_type
+        , {{ extract_json_field('relationships', ['createdBy', 'data', 'id']) }} as created_by_id
+        , {{ extract_json_field('relationships', ['modifiedBy', 'data', 'id']) }} as modified_by_id
 
         /* Meltano specific field */
         , updated_at as record_updated_at

@@ -16,7 +16,7 @@ with source as (
         , {{ extract_json_field('attributes', ['description']) }} as description
         , {{ extract_json_field('attributes', ['icon']) }} as icon
         , {{ extract_json_field('attributes', ['images']) }} as images
-        , {{ extract_json_field('attributes', ['custom']) }} as custom
+        , {{ extract_json_field('attributes', ['custom']) }} as custom -- JSON but structure varies, so can't expand it
         , {{ extract_json_field('attributes', ['tags']) }} as tags
         , {{ extract_json_field('attributes', ['updatedAt']) }} as updated_at
         , {{ extract_json_field('attributes', ['createdAt']) }} as created_at
@@ -24,11 +24,9 @@ with source as (
 
         /* Relationships */
         , {{ extract_json_field('relationships', ['org', 'data', 'id']) }} as organisation_id
-        , {{ extract_json_field('relationships', ['org', 'data', 'type']) }} as organisation_type
         , {{ extract_json_field('relationships', ['klass', 'data', 'id']) }} as klass_id
         , {{ extract_json_field('relationships', ['klass', 'data', 'type']) }} as klass_type
         , {{ extract_json_field('relationships', ['customer', 'data', 'id']) }} as customer_id
-        , {{ extract_json_field('relationships', ['customer', 'data', 'type']) }} as customer_type
 
         /* Meltano specific field */
         , updated_at as record_updated_at
