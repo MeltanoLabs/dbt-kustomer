@@ -3,7 +3,7 @@ with source as (
     select
         shortcut_id
         , access_teams
-        
+
     from {{ ref('stg_kustomer__shortcuts') }}
 
 ) 
@@ -19,7 +19,8 @@ with source as (
     select
         , shortcut_id as shortcut_id
         , {{ extract_json_field('access_teams', ['id']) }} as team_id
-    from source
+
+    from unnest_array
 
 )
 

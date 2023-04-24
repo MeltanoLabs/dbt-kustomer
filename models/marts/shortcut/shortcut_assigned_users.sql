@@ -19,7 +19,8 @@ with source as (
     select
         , shortcut_id as shortcut_id
         , {{ extract_json_field('access_users', ['id']) }} as user_id
-    from source
+
+    from unnest_array
 
 )
 

@@ -13,6 +13,7 @@ with source as (
         null as id -- TODO work out where this field is from
         , shortcut_id as shortcut_id
         , null as name -- TODO work out where this field is from
+
     from source
 
 )
