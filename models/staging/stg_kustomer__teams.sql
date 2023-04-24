@@ -7,7 +7,7 @@ with source as (
 , final as (
 
     select
-        id as note_id
+        id as team_id
 
         /* Attributes */
         , {{ extract_json_field('attributes', ['icon']) }} as icon
