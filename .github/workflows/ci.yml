@@ -7,6 +7,7 @@ on:
 
 env:
   DBT_PROFILES_DIR: /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/integration_tests
+  DBT_PROJECT_DIR: /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/integration_tests
   GITHUB_SHA_OVERRIDE: ${{ github.event.pull_request.head.sha }} # We need the commit hash of the pull request branch's head, the GITHUB_SHA env var is always the base branch in a pull_request_target trigger
   # These are configured in GitHub secrets
   DBT_ENV_SECRET_POSTGRES_DATABASE_NAME: ${{ secrets.POSTGRES_DATABASE_NAME }}
