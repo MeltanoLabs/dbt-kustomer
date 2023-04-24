@@ -16,6 +16,9 @@ env:
 jobs:
   integration-postgres:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./integration_tests
 
     services:
       postgres:
@@ -45,9 +48,6 @@ jobs:
 
       - name: Install dbt
         run: python3 -m pip install dbt-postgres==1.4.5
-
-      - name: Change Directory
-        run: cd integration_tests
 
       - name: Test dbt database connection
         run: dbt debug
