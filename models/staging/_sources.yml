@@ -5,7 +5,7 @@ sources:
     database: "{% if target.type != 'spark'%}{{ var('kustomer_database', target.database) }}{% endif %}"
     schema: "{{ var ('kustomer_schema', 'target.schema') }}"
     tables:
-      - name: companies
+      - name: attachments
         columns: &response_columns
           - name: attributes
             description: A JSON field containing all attributes for that table
@@ -19,6 +19,8 @@ sources:
             description: The object type e.g. `org`, `customer`, `company`
           - name: updated_at
             description: Timestamp the record was last updated
+      - name: companies
+        columns: *response_columns
       - name: conversations
         columns: *response_columns
       - name: customers
