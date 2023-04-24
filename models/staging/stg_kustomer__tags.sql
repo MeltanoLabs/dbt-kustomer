@@ -7,7 +7,7 @@ with source as (
 , final as (
 
     select
-        id as note_id
+        id as tag_id
 
         /* Attributes */
         , {{ extract_json_field('attributes', ['name']) }} as name
