@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: stg_kustomer__customers
+    tests:
+      - dbt_utils.equal_rowcount:
+          compare_model: ref('stg_kustomer__customers_expected')
+      - dbt_utils.equality:
+          compare_model: ref('stg_kustomer__customers_expected')

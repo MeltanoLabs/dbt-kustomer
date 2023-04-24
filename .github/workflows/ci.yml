@@ -1,0 +1,67 @@
+name: CI Integration Tests
+
+on:
+  pull_request:
+    branches:    
+      - main
+
+env:
+  DBT_PROFILES_DIR: /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/integration_tests
+  GITHUB_SHA_OVERRIDE: ${{ github.event.pull_request.head.sha }} # We need the commit hash of the pull request branch's head, the GITHUB_SHA env var is always the base branch in a pull_request_target trigger
+  # These are configured in GitHub secrets
+  DBT_ENV_SECRET_POSTGRES_DATABASE_NAME: ${{ secrets.POSTGRES_DATABASE_NAME }}
+  DBT_ENV_SECRET_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  DBT_ENV_SECRET_POSTGRES_USER: ${{ secrets.POSTGRES_USER }} 
+
+jobs:
+  integration-postgres:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DATABASE_NAME }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} # Check out the code of the PR
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.x'
+          architecture: 'x64'
+
+      - name: Install dbt
+        run: python3 -m pip install dbt-postgres==1.4.5
+
+      - name: Change Directory
+        run: cd integration_tests
+
+      - name: Test dbt database connection
+        run: dbt debug
+
+      - name: Install dbt packages
+        run: dbt deps
+
+      - name: Seed dbt test data
+        run: dbt seed --full-refresh
+
+      - name: Run dbt models
+        run: |
+          dbt run -s stg_kustomer__customers --full-refresh
+
+      - name: Test dbt models
+        run: |
+          dbt test

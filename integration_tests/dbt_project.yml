@@ -7,14 +7,10 @@ profile: 'integration_tests'
 model-paths: ["models"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
-seed-paths: ["seeds"]
+seed-paths: ["data"]
 macro-paths: ["macros"]
 
 target-path: "target"
 clean-targets:
     - "target"
     - "dbt_packages"
-
-seeds:
-  +schema: raw_data
-  +quote_columns: false
