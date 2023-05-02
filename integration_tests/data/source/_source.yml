@@ -1,0 +1,12 @@
+version: 2
+
+seeds:
+  - name: customers
+    config:
+      column_types:
+        type: text
+        id: text
+        attributes: jsonb        
+        relationships: jsonb
+        links: jsonb
+        updated_at: timestamp
