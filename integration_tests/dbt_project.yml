@@ -1,8 +1,8 @@
-name: 'dbt_kustomer_integration_tests'
-version: '1.0'
+name: "dbt_kustomer_integration_tests"
+version: "1.0"
 config-version: 2
 
-profile: 'integration_tests'
+profile: "integration_tests"
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -14,3 +14,7 @@ target-path: "target"
 clean-targets:
     - "target"
     - "dbt_packages"
+
+vars:
+    kustomer_database: "{{ env_var('DBT_ENV_SECRET_POSTGRES_DATABASE_NAME') }}"
+    kustomer_schema: tap_kustomer
