@@ -1,8 +1,8 @@
-name: 'dbt_kustomer_integration_tests'
-version: '1.0'
+name: "dbt_kustomer_integration_tests"
+version: "1.0"
 config-version: 2
 
-profile: 'integration_tests'
+profile: "integration_tests"
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -12,5 +12,11 @@ macro-paths: ["macros"]
 
 target-path: "target"
 clean-targets:
-    - "target"
-    - "dbt_packages"
+  - "target"
+  - "dbt_packages"
+
+vars:
+  kustomer_schema: integration_tests_tap_kustomer
+
+seeds:
+  +schema: tap_kustomer

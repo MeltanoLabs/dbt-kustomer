@@ -2,8 +2,8 @@
 # You should __NEVER__ check credentials into version control. Thanks for reading :)
 
 config:
-    send_anonymous_usage_stats: False
-    use_colors: True
+  send_anonymous_usage_stats: False
+  use_colors: True
 
 integration_tests:
   outputs:
@@ -13,9 +13,7 @@ integration_tests:
       port: 5432
       dbname: "{{ env_var('DBT_ENV_SECRET_POSTGRES_DATABASE_NAME') }}"
       password: "{{ env_var('DBT_ENV_SECRET_POSTGRES_PASSWORD') }}"
-      schema: integration_tests_{{ env_var('GITHUB_SHA_OVERRIDE', '') if env_var('GITHUB_SHA_OVERRIDE', '') else env_var('GITHUB_SHA') }}
+      schema: integration_tests
       user: "{{ env_var('DBT_ENV_SECRET_POSTGRES_USER') }}"
       threads: 1
   target: dev
-
-
