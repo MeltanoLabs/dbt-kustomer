@@ -16,7 +16,7 @@ clean-targets:
   - "dbt_packages"
 
 vars:
-  kustomer_schema: "{{ target.schema }}_tap_kustomer"
+  kustomer_schema: integration_tests_tap_kustomer
 
 seeds:
   +schema: tap_kustomer
