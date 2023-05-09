@@ -2,8 +2,12 @@ name: CI Integration Tests
 
 on:
   pull_request:
-    branches:    
+    branches:
       - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   DBT_PROFILES_DIR: /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/integration_tests/
@@ -12,7 +16,7 @@ env:
   # These are configured in GitHub secrets
   DBT_ENV_SECRET_POSTGRES_DATABASE_NAME: ${{ secrets.POSTGRES_DATABASE_NAME }}
   DBT_ENV_SECRET_POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-  DBT_ENV_SECRET_POSTGRES_USER: ${{ secrets.POSTGRES_USER }} 
+  DBT_ENV_SECRET_POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
 
 jobs:
   integration-postgres:
@@ -44,8 +48,8 @@ jobs:
 
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.10.x'
-          architecture: 'x64'
+          python-version: "3.10.x"
+          architecture: "x64"
 
       - name: Install dbt
         run: python3 -m pip install dbt-postgres==1.4.5
