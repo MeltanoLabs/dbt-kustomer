@@ -2,10 +2,10 @@
 # You should __NEVER__ check credentials into version control. Thanks for reading :)
 
 config:
-    send_anonymous_usage_stats: False
-    use_colors: True
+  send_anonymous_usage_stats: False
+  use_colors: True
 
-integration_tests:
+dbt_kustomer:
   outputs:
     dev:
       type: postgres
@@ -17,5 +17,3 @@ integration_tests:
       user: "{{ env_var('DBT_ENV_SECRET_POSTGRES_USER') }}"
       threads: 1
   target: dev
-
-
