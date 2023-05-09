@@ -17,3 +17,6 @@ clean-targets:
 
 vars:
     kustomer_schema: tap_kustomer
+
+seeds:
+    +schema: tap_kustomer
