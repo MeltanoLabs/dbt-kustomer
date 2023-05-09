@@ -10,7 +10,8 @@ clean-targets: # directories to be removed by `dbt clean`
 
 # Where the tap data is expected to be landed
 vars:
-  kustomer_schema: tap_kustomer
+  dbt_kustomer:
+    kustomer_schema: tap_kustomer
 
 # Model configuration
 models:
