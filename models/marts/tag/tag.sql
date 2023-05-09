@@ -1,6 +1,6 @@
 with source as (
 
-select * from {{ ref('stg_kustomer__tags') }}
+    select * from {{ ref('stg_kustomer__tags') }}
 
 )
 
