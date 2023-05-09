@@ -20,6 +20,9 @@ env:
 jobs:
   integration-postgres:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/integration_tests/
 
     services:
       postgres:
@@ -51,18 +54,18 @@ jobs:
         run: python3 -m pip install dbt-postgres==1.4.5
 
       - name: Test dbt database connection
-        run: dbt debug --project-dir $DBT_PROFILES_DIR
+        run: dbt debug
 
       - name: Install dbt packages
-        run: dbt deps --project-dir $DBT_PROFILES_DIR
+        run: dbt deps
 
       - name: Seed dbt test data
-        run: dbt seed --project-dir $DBT_PROFILES_DIR --full-refresh
+        run: dbt seed --full-refresh
 
       - name: Run dbt models
         run: |
-          dbt run -s stg_kustomer__customers --project-dir $DBT_PROFILES_DIR --full-refresh
+          dbt run -s stg_kustomer__customers --full-refresh
 
       - name: Test dbt models
         run: |
-          dbt test --project-dir $DBT_PROFILES_DIR
+          dbt test
