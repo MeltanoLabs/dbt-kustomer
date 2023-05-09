@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DBT_PROFILES_DIR: /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/integration_tests/
-  DBT_PROJECT_DIR: /home/runner/work/${{ github.event.repository.name }}/${{ github.event.repository.name }}/integration_tests/
+  DBT_PROFILES_DIR: ${{ github.workspace }}/integration_tests/
+  DBT_PROJECT_DIR: ${{ github.workspace }}/integration_tests/
   GITHUB_SHA_OVERRIDE: ${{ github.event.pull_request.head.sha }} # We need the commit hash of the pull request branch's head, the GITHUB_SHA env var is always the base branch in a pull_request_target trigger
   # These are configured in GitHub secrets
   DBT_ENV_SECRET_POSTGRES_DATABASE_NAME: ${{ secrets.POSTGRES_DATABASE_NAME }}
@@ -21,9 +21,6 @@ env:
 jobs:
   integration-postgres:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./integration_tests
 
     services:
       postgres:
@@ -51,6 +48,9 @@ jobs:
           python-version: "3.10.x"
           architecture: "x64"
 
+      - name: Change project directory
+        run: cd $DBT_PROJECT_DIR
+
       - name: Install dbt
         run: python3 -m pip install dbt-postgres==1.4.5
 
@@ -61,7 +61,7 @@ jobs:
         run: dbt deps
 
       - name: Seed dbt test data
-        run: dbt seed --full-refresh
+        run: dbt seed  --full-refresh
 
       - name: Run dbt models
         run: |
