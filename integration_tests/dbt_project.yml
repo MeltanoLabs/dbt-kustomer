@@ -16,7 +16,7 @@ clean-targets:
     - "dbt_packages"
 
 vars:
-    kustomer_schema: tap_kustomer
+    kustomer_schema: integration_tests_{{ env_var('GITHUB_SHA_OVERRIDE', '') if env_var('GITHUB_SHA_OVERRIDE', '') else env_var('GITHUB_SHA') }}_tap_kustomer
 
 seeds:
     +schema: tap_kustomer
