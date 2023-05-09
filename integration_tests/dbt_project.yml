@@ -16,5 +16,5 @@ clean-targets:
     - "dbt_packages"
 
 vars:
-    kustomer_database: "{{ env_var('DBT_ENV_SECRET_POSTGRES_DATABASE_NAME') }}"
+    kustomer_database: "{{ target.database }}"
     kustomer_schema: tap_kustomer
