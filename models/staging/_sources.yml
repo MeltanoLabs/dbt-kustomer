@@ -2,7 +2,6 @@ version: 2
 
 sources:
   - name: kustomer
-    database: "{{ target.database) }}"
     schema: "{{ var ('kustomer_schema', target.schema) }}"
     tables:
       - name: attachments
