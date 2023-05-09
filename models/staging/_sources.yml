@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: kustomer
-    schema: "{{ var ('kustomer_schema', target.schema) }}"
+    schema: "{{ var ('kustomer_schema', 'tap_kustomer') }}"
     tables:
       - name: attachments
         columns: &response_columns
