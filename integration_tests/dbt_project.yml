@@ -16,5 +16,4 @@ clean-targets:
     - "dbt_packages"
 
 vars:
-    kustomer_database: "{{ target.database }}"
     kustomer_schema: tap_kustomer

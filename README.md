@@ -33,11 +33,10 @@ packages:
 
 2. Install the package by running `dbt deps`
 
-3. In your `dbt_project.yml` file, include the locations where the tap data is expected to load from:
+3. In your `dbt_project.yml` file, include the location where the tap data is expected to load from:
 
 ```yml
 vars:
-  kustomer_database: your_database_name # By default this is `kustomer`
   kustomer_schema: your_database_schema # By default this is `tap_kustomer`
 ```
 

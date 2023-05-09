@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: kustomer
-    database: "{% if target.type != 'spark'%}{{ var('kustomer_database', target.database) }}{% endif %}"
+    database: "{{ target.database) }}"
     schema: "{{ var ('kustomer_schema', target.schema) }}"
     tables:
       - name: attachments
